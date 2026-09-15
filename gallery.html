@@ -1,17 +1,39 @@
----
-layout: base.njk
-permalink: gallery.html
-title: Gallery | Stanford Muslim Student Union
-description: "Photos from Stanford Muslim Student Union events — prayers, gatherings, iftars, and celebrations."
-ogTitle: Gallery | Stanford Muslim Student Union
-ogDescription: "Moments from our community — prayers, gatherings, and celebrations."
-canonical: https://stanford-msu.netlify.app/gallery.html
-homeHref: "index.html#home"
-contactHref: "index.html#contact"
-navSolid: true
-extraScripts:
-  - js/gallery.js
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | Stanford Muslim Student Union</title>
+  <meta name="description" content="Photos from Stanford Muslim Student Union events — prayers, gatherings, iftars, and celebrations." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://stanford-msu.netlify.app/gallery.html" />
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Stanford Muslim Student Union" />
+  <meta property="og:url" content="https://stanford-msu.netlify.app/gallery.html" />
+  <meta property="og:title" content="Gallery | Stanford Muslim Student Union" />
+  <meta property="og:description" content="Moments from our community — prayers, gatherings, and celebrations." />
+  <meta property="og:image" content="https://stanford-msu.netlify.app/assets/photos/page_background.png" />
+
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Gallery | Stanford Muslim Student Union" />
+  <meta name="twitter:description" content="Moments from our community — prayers, gatherings, and celebrations." />
+  <meta name="twitter:image" content="https://stanford-msu.netlify.app/assets/photos/page_background.png" />
+
+  <link rel="icon" type="image/png" href="assets/logos/msu_logo_without_background.png" />
+  <meta name="theme-color" content="#8C1515" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div id="site-nav"></div>
+
   <main style="padding-top: var(--nav-h);">
     <!-- ── GALLERY ────────────────────────────────────────────── -->
     <section id="gallery" class="section gallery">
@@ -69,3 +91,11 @@ extraScripts:
       </div>
     </section>
   </main>
+
+  <div id="site-footer"></div>
+
+  <script>window.navSolid = true;</script>
+  <script src="js/script.js"></script>
+  <script src="js/gallery.js"></script>
+</body>
+</html>

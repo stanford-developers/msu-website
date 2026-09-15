@@ -1,15 +1,39 @@
----
-layout: base.njk
-permalink: index.html
-title: Stanford Muslim Student Union
-description: "The Stanford Muslim Student Union (MSU) is a student-led community for Muslim students at Stanford, hosting Jumu'ah prayers, brothers' and sisters' halaqas, Ramadan programming, and campus events centered on faith, community, and service."
-ogTitle: Stanford Muslim Student Union
-ogDescription: "A student-led community for Muslim students at Stanford — Jumu'ah prayers, halaqas, Ramadan programming, and campus events centered on faith, community, and service."
-canonical: https://stanford-msu.netlify.app/
-homeHref: "#home"
-contactHref: "#contact"
-navSolid: false
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stanford Muslim Student Union</title>
+  <meta name="description" content="The Stanford Muslim Student Union (MSU) is a student-led community for Muslim students at Stanford, hosting Jumu'ah prayers, brothers' and sisters' halaqas, Ramadan programming, and campus events centered on faith, community, and service." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://stanford-msu.netlify.app/" />
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Stanford Muslim Student Union" />
+  <meta property="og:url" content="https://stanford-msu.netlify.app/" />
+  <meta property="og:title" content="Stanford Muslim Student Union" />
+  <meta property="og:description" content="A student-led community for Muslim students at Stanford — Jumu'ah prayers, halaqas, Ramadan programming, and campus events centered on faith, community, and service." />
+  <meta property="og:image" content="https://stanford-msu.netlify.app/assets/photos/page_background.png" />
+
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Stanford Muslim Student Union" />
+  <meta name="twitter:description" content="A student-led community for Muslim students at Stanford — Jumu'ah prayers, halaqas, Ramadan programming, and campus events centered on faith, community, and service." />
+  <meta name="twitter:image" content="https://stanford-msu.netlify.app/assets/photos/page_background.png" />
+
+  <link rel="icon" type="image/png" href="assets/logos/msu_logo_without_background.png" />
+  <meta name="theme-color" content="#8C1515" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div id="site-nav"></div>
+
   <!-- ── HERO ─────────────────────────────────────────────── -->
   <section id="home" class="hero">
     <div class="hero-content">
@@ -151,3 +175,9 @@ navSolid: false
       </div>
     </div>
   </section>
+
+  <div id="site-footer"></div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
