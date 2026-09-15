@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://stanford-msu.netlify.app/sitemap.xml
+Sitemap: https://stanford-developers.github.io/msu-website/sitemap.xml
