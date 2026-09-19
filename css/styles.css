@@ -293,10 +293,11 @@ ul  { list-style: none; }
   position: relative;
   overflow: hidden;
   padding-top: var(--nav-h);
-  /* Photo behind, maroon gradient on top */
+  /* Photo behind, maroon gradient on top — background-size:cover keeps the
+     photo scaling to fill the hero at any window size */
   background:
     linear-gradient(150deg, rgba(74,10,10,.88) 30%, rgba(140,21,21,.78) 100%, rgba(90,12,12,.90) 100%),
-    url('../assets/photos/page_background.png') 80% 35% / 105% no-repeat;
+    url('../assets/photos/main-background.jpg') center center / cover no-repeat;
 }
 
 /* Gold glow from below */
@@ -1106,12 +1107,6 @@ ul  { list-style: none; }
     background: rgba(0,0,0,.15);
   }
   .nav-dropdown.open .nav-dropdown-menu { display: block; }
-
-  .hero {
-    background:
-      linear-gradient(150deg, rgba(74,10,10,.88) 30%, rgba(140,21,21,.78) 100%, rgba(90,12,12,.90) 100%),
-      url('../assets/photos/page_background.png') center center / cover no-repeat;
-  }
 
   .gallery-grid { grid-template-columns: 1fr; }
   .section { padding: 72px 0; }
