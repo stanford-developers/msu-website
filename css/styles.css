@@ -709,7 +709,7 @@ ul  { list-style: none; }
 
 .chaplain-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 32px;
 }
 .chaplain-card {
@@ -755,6 +755,19 @@ ul  { list-style: none; }
   font-size: .92rem;
   color: rgba(239,224,192,.72);
   line-height: 1.65;
+}
+.chaplain-link {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  color: var(--gold-light);
+  transition: color .2s, transform .2s;
+}
+.chaplain-link:hover {
+  color: var(--gold);
+  transform: translateX(3px);
 }
 
 /* ================================================================
@@ -1063,6 +1076,7 @@ ul  { list-style: none; }
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
   .contact-map iframe { height: 420px; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .chaplain-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {
