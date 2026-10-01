@@ -183,6 +183,12 @@ ul  { list-style: none; }
   align-items: center;
   gap: 38px;
 }
+/* each item is its own flex box so links and the Resources button share one
+   baseline — otherwise the <a>s inherit the taller 16px line strut and sit low */
+.nav-links > li {
+  display: flex;
+  align-items: center;
+}
 .nav-links .nav-link {
   color: var(--cream);
   font-weight: 500;
@@ -204,7 +210,7 @@ ul  { list-style: none; }
 .nav-links .nav-link:hover::after{ width: 100%; }
 
 /* ── Resources dropdown ── */
-.nav-dropdown { position: relative; }
+.nav-dropdown { position: relative; display: flex; align-items: center; }
 .nav-dropdown-toggle {
   background: none;
   border: none;
@@ -213,7 +219,12 @@ ul  { list-style: none; }
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  padding: 0;
+  line-height: inherit;
 }
+/* the 4px that .nav-link reserves for its underline is layout-free on inline
+   <a>s, but would add real height to this button — offset the rule instead */
+.nav-links .nav-dropdown-toggle::after { bottom: -4px; }
 .nav-caret {
   font-size: .7rem;
   transition: transform .2s;
@@ -1021,34 +1032,6 @@ ul  { list-style: none; }
 /* ================================================================
    RESPONSIVE
    ================================================================ */
-.btn-donate {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  background: var(--maroon);
-  color: var(--cream) !important;
-  font-weight: 700;
-  font-size: .93rem;
-  letter-spacing: .03em;
-  padding: 12px 26px;
-  border-radius: 40px;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
-}
-.btn-donate:hover {
-  background: var(--maroon-dark);
-  color: var(--cream-light) !important;
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(0,0,0,.22);
-}
-.btn-donate.btn-donate-lg {
-  font-size: 1.15rem;
-  padding: 18px 46px;
-}
-
 .gold-frame-link {
   display: inline-flex;
   align-items: center;
@@ -1095,8 +1078,14 @@ ul  { list-style: none; }
   .nav-links.open { display: flex; }
   .hamburger      { display: flex; }
 
+  /* the menu is in-flow here, so stack it under the toggle instead of beside it */
+  .nav-dropdown {
+    flex-direction: column;
+    align-items: flex-start;
+  }
   .nav-dropdown-menu {
     position: static;
+    width: 100%;
     display: none;
     opacity: 1;
     visibility: visible;
