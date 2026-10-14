@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://stanford-developers.github.io/msu-website/</loc>
+    <loc>https://msu.stanford.edu/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://stanford-developers.github.io/msu-website/about.html</loc>
+    <loc>https://msu.stanford.edu/about.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stanford-developers.github.io/msu-website/ramadan.html</loc>
+    <loc>https://msu.stanford.edu/ramadan.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stanford-developers.github.io/msu-website/gallery.html</loc>
+    <loc>https://msu.stanford.edu/gallery.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stanford-developers.github.io/msu-website/campus-life.html</loc>
+    <loc>https://msu.stanford.edu/campus-life.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stanford-developers.github.io/msu-website/resources-new-students.html</loc>
+    <loc>https://msu.stanford.edu/resources-new-students.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
