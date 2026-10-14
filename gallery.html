@@ -87,12 +87,31 @@
             <div class="gallery-caption"><span class="caption">Open Iftar</span></div>
           </div>
 
+          <div class="gallery-item landscape">
+            <img src="assets/gallery/welcome-banquet-2026.jpg" alt="Welcome Banquet 2026" loading="lazy" />
+            <div class="gallery-caption"><span class="caption">Welcome Banquet 2026</span></div>
+          </div>
+
         </div>
       </div>
     </section>
   </main>
 
   <div id="site-footer"></div>
+
+  <!-- ── Lightbox (built by gallery.js from the grid above) ──────── -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close photo viewer">&times;</button>
+    <button class="lightbox-nav prev" id="lightbox-prev" type="button" aria-label="Previous photo">&#8249;</button>
+    <figure class="lightbox-figure">
+      <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+      <figcaption class="lightbox-caption">
+        <span id="lightbox-caption-text"></span>
+        <span class="lightbox-count" id="lightbox-count"></span>
+      </figcaption>
+    </figure>
+    <button class="lightbox-nav next" id="lightbox-next" type="button" aria-label="Next photo">&#8250;</button>
+  </div>
 
   <script>window.navSolid = true;</script>
   <script src="js/script.js"></script>
