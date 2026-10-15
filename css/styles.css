@@ -613,7 +613,9 @@ ul  { list-style: none; }
    ================================================================ */
 .gallery {
   background: linear-gradient(170deg, var(--maroon-deep) 0%, #5C0F0F 100%);
+  text-align: center;
 }
+.gallery .section-sub { max-width: none; }   /* one line on desktop; wraps on phones */
 
 /* ── Gallery grid ── */
 .gallery-grid {
@@ -668,6 +670,7 @@ ul  { list-style: none; }
   transition: opacity .28s;
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   padding: 14px 16px;
 }
 .gallery-item:hover .gallery-caption { opacity: 1; }
