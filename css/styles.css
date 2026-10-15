@@ -486,32 +486,75 @@ ul  { list-style: none; }
   color: var(--maroon-dark);
   margin-bottom: 6px;
 }
-.about-card {
-  background: var(--white);
-  border-left: 4px solid var(--maroon);
-  border-radius: var(--radius);
-  padding: 24px 26px;
-  box-shadow: var(--shadow-sm);
-  transition: transform .24s, box-shadow .24s;
-}
-.about-card:hover {
-  transform: translateX(7px);
-  box-shadow: var(--shadow-md);
-}
 .card-icon  { font-size: 1.7rem; margin-bottom: 8px; }
-.about-card h3 {
+
+/* ── Recurring events: flyer circles, 2 per row ── */
+.flyer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 36px 24px;
+  margin-top: 12px;
+}
+.flyer-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.flyer-thumb {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 200px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--cream);
+  border: 3px solid var(--white);
+  box-shadow: 0 0 0 2px var(--maroon), var(--shadow-sm);
+  margin-bottom: 16px;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+/* grows in place — scale only, never moves up */
+.flyer-circle:hover .flyer-thumb,
+.flyer-circle:focus-visible .flyer-thumb {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 2px var(--gold), var(--shadow-md);
+}
+.flyer-circle:focus-visible { outline: none; }
+.flyer-icon { font-size: 2.6rem; }
+.flyer-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.flyer-thumb.flyer-zoom img { transform: scale(1.18); }   /* crop in on busy flyers */
+.flyer-thumb.missing img { display: none; }   /* no flyer yet: show the icon */
+.flyer-name {
   font-family: var(--font-display);
   letter-spacing: var(--display-tracking);
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   color: var(--maroon);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
-.about-card p {
-  font-size: .93rem;
+.flyer-when,
+.flyer-where {
+  font-size: .88rem;
   color: var(--text-muted);
-  line-height: 1.65;
+  line-height: 1.5;
 }
+.flyer-circle.no-flyer { cursor: default; }
+.flyer-circle.no-flyer:hover .flyer-thumb { transform: none; box-shadow: 0 0 0 2px var(--maroon), var(--shadow-sm); }
 
 /* ================================================================
    EVENTS

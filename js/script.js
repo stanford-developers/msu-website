@@ -88,3 +88,58 @@ const revealObserver = new IntersectionObserver(
   { threshold: 0.12 }
 );
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ── Recurring events: click a flyer circle to see the full flyer ──
+//
+// Each .flyer-circle names its image in data-flyer. Until that file
+// exists in assets/flyers/, the circle shows its icon and isn't clickable.
+//
+const flyerViewer = document.getElementById('flyer-viewer');
+
+if (flyerViewer) {
+  const fvImg     = document.getElementById('flyer-viewer-img');
+  const fvCaption = document.getElementById('flyer-viewer-caption');
+  const fvClose   = document.getElementById('flyer-viewer-close');
+  let lastFocused = null;
+
+  function openFlyer(circle) {
+    const text = sel => circle.querySelector(sel).textContent.trim();
+    lastFocused = circle;
+    fvImg.src = circle.dataset.flyer;
+    fvImg.alt = `${text('.flyer-name')} flyer`;
+    fvCaption.textContent = `${text('.flyer-name')} · ${text('.flyer-when')} · ${text('.flyer-where')}`;
+    flyerViewer.hidden = false;
+    document.body.classList.add('lightbox-open');
+    requestAnimationFrame(() => flyerViewer.classList.add('open'));
+    fvClose.focus();
+  }
+
+  function closeFlyer() {
+    flyerViewer.classList.remove('open');
+    document.body.classList.remove('lightbox-open');
+    setTimeout(() => { flyerViewer.hidden = true; fvImg.removeAttribute('src'); }, 250);
+    if (lastFocused) lastFocused.focus();
+  }
+
+  document.querySelectorAll('.flyer-circle').forEach(circle => {
+    const img = circle.querySelector('img');
+    const markMissing = () => {
+      circle.querySelector('.flyer-thumb').classList.add('missing');
+      circle.classList.add('no-flyer');
+    };
+    if (img.complete && !img.naturalWidth) markMissing();
+    img.addEventListener('error', markMissing);
+
+    circle.addEventListener('click', () => {
+      if (!circle.classList.contains('no-flyer')) openFlyer(circle);
+    });
+  });
+
+  fvClose.addEventListener('click', closeFlyer);
+  flyerViewer.addEventListener('click', e => {
+    if (e.target === flyerViewer || e.target.classList.contains('lightbox-figure')) closeFlyer();
+  });
+  document.addEventListener('keydown', e => {
+    if (!flyerViewer.hidden && e.key === 'Escape') closeFlyer();
+  });
+}
