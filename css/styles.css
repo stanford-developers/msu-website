@@ -10,6 +10,44 @@
      --gold-light  #E8A800
    ================================================================ */
 
+/* ── FONTS ───────────────────────────────────────────────────── */
+/* Nohemi by Rajesh Rajput — free licence, see assets/fonts/Nohemi-EULA.pdf */
+@font-face {
+  font-family: 'Nohemi';
+  src: url('../assets/fonts/Nohemi-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Nohemi';
+  src: url('../assets/fonts/Nohemi-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Nohemi';
+  src: url('../assets/fonts/Nohemi-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Nohemi';
+  src: url('../assets/fonts/Nohemi-ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Nohemi';
+  src: url('../assets/fonts/Nohemi-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --maroon:       #8C1515;
   --maroon-dark:  #6B0F0F;
@@ -22,6 +60,8 @@
   --text:         #1C0B0B;
   --text-muted:   #6B5252;
   --nav-h:        70px;
+  --font-display: 'Nohemi', 'Manrope', sans-serif;
+  --display-tracking: .015em;   /* letter spacing for Nohemi headings */
   --radius:       14px;
   --shadow-sm:    0 4px 16px rgba(140,21,21,.10);
   --shadow-md:    0 8px 32px rgba(140,21,21,.16);
@@ -31,7 +71,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Manrope', sans-serif;
   color: var(--text);
   background: var(--cream-light);
   overflow-x: hidden;
@@ -46,6 +86,7 @@ ul  { list-style: none; }
 
 /* ── SHARED TYPOGRAPHY ───────────────────────────────────────── */
 .tag {
+  font-family: var(--font-display);
   display: inline-block;
   background: var(--maroon);
   color: var(--cream);
@@ -63,8 +104,9 @@ ul  { list-style: none; }
 }
 
 .section-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 900;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: var(--display-tracking);
   font-size: clamp(2rem, 4vw, 3.2rem);
   color: var(--maroon-dark);
   line-height: 1.08;
@@ -87,6 +129,7 @@ ul  { list-style: none; }
 
 /* ── BUTTONS ─────────────────────────────────────────────────── */
 .btn-primary {
+  font-family: var(--font-display);
   display: inline-block;
   background: var(--cream);
   color: var(--maroon-dark);
@@ -115,6 +158,8 @@ ul  { list-style: none; }
 }
 
 .btn-outline {
+  font-family: var(--font-display);
+  letter-spacing: var(--display-tracking);
   display: inline-block;
   border: 2px solid var(--maroon);
   color: var(--maroon);
@@ -190,6 +235,7 @@ ul  { list-style: none; }
   align-items: center;
 }
 .nav-links .nav-link {
+  font-family: var(--font-display);
   color: var(--cream);
   font-weight: 500;
   font-size: .93rem;
@@ -258,6 +304,7 @@ ul  { list-style: none; }
   transform: translateY(0);
 }
 .nav-dropdown-menu a {
+  font-family: var(--font-display);
   display: block;
   padding: 10px 14px;
   border-radius: 8px;
@@ -340,14 +387,16 @@ ul  { list-style: none; }
   animation: heroFadeDown .9s ease both;
 }
 .hero-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 900;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: var(--display-tracking);
   font-size: clamp(2.4rem, 6.5vw, 5.2rem);
   color: var(--cream);
   line-height: 1.04;
   animation: heroFadeUp .9s .18s ease both;
 }
 .hero-subtitle {
+  font-family: var(--font-display);
   font-size: clamp(.95rem, 2vw, 1.2rem);
   color: var(--gold-light);
   font-weight: 600;
@@ -430,7 +479,8 @@ ul  { list-style: none; }
   gap: 20px;
 }
 .about-cards-label {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
+  letter-spacing: var(--display-tracking);
   font-size: 1.55rem;
   font-weight: 700;
   color: var(--maroon-dark);
@@ -450,7 +500,8 @@ ul  { list-style: none; }
 }
 .card-icon  { font-size: 1.7rem; margin-bottom: 8px; }
 .about-card h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
+  letter-spacing: var(--display-tracking);
   font-weight: 700;
   font-size: 1.15rem;
   color: var(--maroon);
@@ -674,6 +725,7 @@ ul  { list-style: none; }
 body.lightbox-open { overflow: hidden; }
 
 .caption {
+  font-family: var(--font-display);
   color: var(--cream);
   font-weight: 700;
   font-size: .92rem;
@@ -703,7 +755,8 @@ body.lightbox-open { overflow: hidden; }
 .contact-icon { font-size: 1.5rem; margin-top: 2px; flex-shrink: 0; }
 .contact-item strong {
   display: block;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
+  letter-spacing: var(--display-tracking);
   font-weight: 700;
   font-size: .97rem;
   color: var(--maroon);
@@ -756,6 +809,8 @@ body.lightbox-open { overflow: hidden; }
 .board-header-text .section-sub { margin-bottom: 0; }
 
 .board-cta {
+  font-family: var(--font-display);
+  letter-spacing: var(--display-tracking);
   flex: 1 1 360px;
   max-width: 420px;
   background: linear-gradient(120deg, rgba(196,134,10,.14), rgba(140,21,21,.06));
@@ -798,7 +853,8 @@ body.lightbox-open { overflow: hidden; }
   box-shadow: var(--shadow-md);
 }
 .committee-card h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
+  letter-spacing: var(--display-tracking);
   font-weight: 700;
   font-size: 1.12rem;
   color: var(--maroon);
@@ -845,13 +901,15 @@ body.lightbox-open { overflow: hidden; }
   object-fit: cover;
 }
 .chaplain-card h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
+  letter-spacing: var(--display-tracking);
   font-weight: 700;
   font-size: 1.25rem;
   color: var(--cream);
   margin-bottom: 4px;
 }
 .chaplain-role {
+  font-family: var(--font-display);
   font-size: .78rem;
   font-weight: 700;
   letter-spacing: .1em;
@@ -865,6 +923,7 @@ body.lightbox-open { overflow: hidden; }
   line-height: 1.65;
 }
 .chaplain-link {
+  font-family: var(--font-display);
   display: inline-block;
   margin-top: 14px;
   font-size: .85rem;
@@ -919,7 +978,8 @@ body.lightbox-open { overflow: hidden; }
   gap: 10px;
 }
 .org-info h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
+  letter-spacing: var(--display-tracking);
   font-weight: 700;
   font-size: 1.15rem;
   color: var(--maroon);
@@ -963,7 +1023,8 @@ body.lightbox-open { overflow: hidden; }
 }
 .prayer-card-body { padding: 22px 24px; }
 .prayer-card-body h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
+  letter-spacing: var(--display-tracking);
   font-weight: 700;
   font-size: 1.1rem;
   color: var(--maroon);
@@ -1049,6 +1110,7 @@ body.lightbox-open { overflow: hidden; }
   box-shadow: var(--shadow-md);
 }
 .class-code {
+  font-family: var(--font-display);
   font-size: .78rem;
   font-weight: 700;
   letter-spacing: .1em;
@@ -1056,13 +1118,16 @@ body.lightbox-open { overflow: hidden; }
   color: var(--gold);
 }
 .class-card h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
+  letter-spacing: var(--display-tracking);
   font-weight: 700;
   font-size: 1.1rem;
   color: var(--maroon);
   line-height: 1.35;
 }
 .class-cta {
+  font-family: var(--font-display);
+  letter-spacing: var(--display-tracking);
   font-size: .82rem;
   font-weight: 700;
   color: var(--maroon);
@@ -1109,6 +1174,7 @@ body.lightbox-open { overflow: hidden; }
   gap: 26px;
 }
 .footer-links a {
+  font-family: var(--font-display);
   font-size: .88rem;
   font-weight: 600;
   letter-spacing: .03em;
