@@ -143,3 +143,65 @@ if (flyerViewer) {
     if (!flyerViewer.hidden && e.key === 'Escape') closeFlyer();
   });
 }
+
+// ── Announcement popup: shown once per calendar week per visitor ──
+//
+// To run a new announcement, edit the text below. To turn it off,
+// set ANNOUNCEMENT to null.
+//
+const ANNOUNCEMENT = {
+  title: 'Did you sign up for Golden Gate Fajr 2026?!',
+  text:  'See details and RSVP at:',
+  link:  'https://tinyurl.com/MSU-GGF-26'
+};
+
+function weekKey(date = new Date()) {
+  // the Monday that starts this week, e.g. "2026-10-12"
+  const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+  return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+}
+
+function showAnnouncement() {
+  const STORE = 'msu-announcement-seen';
+  const week  = weekKey();
+  try {
+    if (localStorage.getItem(STORE) === week) return;
+    localStorage.setItem(STORE, week);
+  } catch (e) { /* storage blocked: just show it */ }
+
+  const popup = document.createElement('div');
+  popup.className = 'announce';
+  popup.setAttribute('role', 'dialog');
+  popup.setAttribute('aria-modal', 'true');
+  popup.setAttribute('aria-labelledby', 'announce-title');
+  popup.innerHTML = `
+    <div class="announce-card">
+      <button class="announce-close" type="button" aria-label="Close">&times;</button>
+      <p class="announce-title" id="announce-title"></p>
+      <p class="announce-text"></p>
+      <a class="announce-link" target="_blank" rel="noopener"></a>
+    </div>`;
+  popup.querySelector('.announce-title').textContent = ANNOUNCEMENT.title;
+  popup.querySelector('.announce-text').textContent  = ANNOUNCEMENT.text;
+  const link = popup.querySelector('.announce-link');
+  link.href = ANNOUNCEMENT.link;
+  link.textContent = ANNOUNCEMENT.link.replace(/^https?:\/\//, '');
+
+  const close = () => {
+    popup.classList.remove('open');
+    document.removeEventListener('keydown', onKey);
+    setTimeout(() => popup.remove(), 250);
+  };
+  const onKey = e => { if (e.key === 'Escape') close(); };
+
+  popup.querySelector('.announce-close').addEventListener('click', close);
+  popup.addEventListener('click', e => { if (e.target === popup) close(); });
+  document.addEventListener('keydown', onKey);
+
+  document.body.appendChild(popup);
+  requestAnimationFrame(() => popup.classList.add('open'));
+  popup.querySelector('.announce-close').focus();
+}
+
+if (ANNOUNCEMENT) setTimeout(showAnnouncement, 900);
