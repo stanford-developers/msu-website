@@ -147,12 +147,14 @@ if (flyerViewer) {
 // ── Announcement popup: shown once per calendar week per visitor ──
 //
 // To run a new announcement, edit the text below. To turn it off,
-// set ANNOUNCEMENT to null.
+// set ANNOUNCEMENT to null. It also stops by itself from the start of
+// the endsOn date (visitor's local time).
 //
 const ANNOUNCEMENT = {
   title: 'Did you sign up for Golden Gate Fajr 2026?!',
   text:  'See details and RSVP at:',
-  link:  'https://tinyurl.com/MSU-GGF-26'
+  link:  'https://tinyurl.com/MSU-GGF-26',
+  endsOn: '2026-10-17'   // Saturday: no popup from this day on
 };
 
 function weekKey(date = new Date()) {
@@ -204,4 +206,11 @@ function showAnnouncement() {
   popup.querySelector('.announce-close').focus();
 }
 
-if (ANNOUNCEMENT) setTimeout(showAnnouncement, 900);
+function announcementActive() {
+  if (!ANNOUNCEMENT) return false;
+  if (!ANNOUNCEMENT.endsOn) return true;
+  const [y, m, d] = ANNOUNCEMENT.endsOn.split('-').map(Number);
+  return new Date() < new Date(y, m - 1, d);   // midnight starting endsOn
+}
+
+if (announcementActive()) setTimeout(showAnnouncement, 900);
