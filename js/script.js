@@ -89,6 +89,27 @@ const revealObserver = new IntersectionObserver(
 );
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
+// ── Hero subtitle (index.html): no dangling "·" when the line wraps ──
+//
+// If the words on either side of a separator end up on different lines,
+// drop the separator so each line reads cleanly ("Faith · Community" /
+// "Service" rather than "Faith · Community ·" / "Service").
+function fixSubtitleWrap() {
+  document.querySelectorAll('.hero-subtitle').forEach(sub => {
+    const seps = [...sub.querySelectorAll('.sep')];
+    seps.forEach(s => s.classList.remove('as-break'));
+    seps.forEach(s => {
+      const before = s.previousElementSibling, after = s.nextElementSibling;
+      if (after.getBoundingClientRect().top > before.getBoundingClientRect().top + 1) {
+        s.classList.add('as-break');
+      }
+    });
+  });
+}
+fixSubtitleWrap();
+document.fonts?.ready.then(fixSubtitleWrap);
+window.addEventListener('resize', () => requestAnimationFrame(fixSubtitleWrap));
+
 // ── Committee honeycomb (about.html): hover or tap a hexagon to enlarge it ──
 //
 // A mouse opens a committee on hover. Touch and keyboard toggle it on
