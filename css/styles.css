@@ -612,8 +612,50 @@ ul  { list-style: none; }
    GALLERY
    ================================================================ */
 .gallery {
-  background: linear-gradient(170deg, var(--maroon-deep) 0%, #5C0F0F 100%);
+  position: relative;
+  isolation: isolate;
+  clip-path: inset(0);      /* keeps the fixed photo layer inside this section */
+  background: var(--maroon-deep);
   text-align: center;
+}
+/* Homepage photo, pinned to the viewport and scrolling sideways behind the grid.
+   The track alternates normal + mirrored copies so the edges always line up,
+   then slides left by exactly one pair (2 of 6 tiles) and loops seamlessly. */
+.gallery-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+}
+.gallery-bg-track {
+  display: flex;
+  height: 100%;
+  width: max-content;
+  animation: galleryScroll 120s linear infinite;
+  will-change: transform;
+}
+.gallery-bg-track span {
+  height: 100%;
+  aspect-ratio: 16 / 9;    /* matches main-background.jpg (1920×1080) */
+  background: url('../assets/photos/main-background.jpg') center / cover no-repeat;
+}
+.gallery-bg-track span:nth-child(even) { transform: scaleX(-1); }
+/* Dim layer — darker than the homepage hero so photos stay the focus */
+.gallery::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(170deg, rgba(50,6,6,.92) 0%, rgba(74,10,10,.88) 100%);
+  pointer-events: none;
+}
+@keyframes galleryScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.3333%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-bg-track { animation: none; }
 }
 .gallery .section-sub { max-width: none; }   /* one line on desktop; wraps on phones */
 
