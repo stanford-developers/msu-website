@@ -486,7 +486,6 @@ ul  { list-style: none; }
   color: var(--maroon-dark);
   margin-bottom: 6px;
 }
-.card-icon  { font-size: 1.7rem; margin-bottom: 8px; }
 
 /* ── Recurring events: flyer circles, 2 per row ── */
 .flyer-grid {
@@ -901,14 +900,55 @@ body.lightbox-open { overflow: hidden; }
   letter-spacing: var(--display-tracking);
   flex: 1 1 360px;
   max-width: 420px;
-  background: linear-gradient(120deg, rgba(196,134,10,.14), rgba(140,21,21,.06));
-  border-left: 4px solid var(--gold);
-  border-radius: var(--radius);
+  position: relative;
+  background: #f6e7c8;
+  border: 1.5px solid #d8ad56;
+  border-radius: 24px 24px 6px 24px;
+  box-shadow: 0 8px 24px rgba(140,21,21,.10);
   padding: 18px 26px;
   font-size: 1.05rem;
   font-weight: 600;
   color: var(--maroon-dark);
   line-height: 1.6;
+}
+/* Chat-bubble tail, bottom-right: ::before draws the outline, ::after the fill */
+.board-cta::before,
+.board-cta::after {
+  content: '';
+  position: absolute;
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+}
+.board-cta::before {
+  right: -13px;
+  bottom: -1.5px;
+  width: 25px;
+  height: 21px;
+  background: #d8ad56;
+}
+.board-cta::after {
+  right: -9.5px;
+  bottom: 0;
+  width: 21px;
+  height: 17px;
+  background: #f6e7c8;
+}
+
+/* Pop-up animation when scrolled into view (overrides the generic .reveal slide) */
+.board-cta.reveal {
+  transform: scale(.3);
+  transform-origin: bottom right;
+  transition: none;
+}
+.board-cta.reveal.visible {
+  animation: bubble-pop .6s cubic-bezier(.34, 1.56, .64, 1) .5s both;   /* .5s delay so visitors catch it */
+}
+@keyframes bubble-pop {
+  0%   { opacity: 0; transform: scale(.3); }
+  60%  { opacity: 1; transform: scale(1.06); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .board-cta.reveal, .board-cta.reveal.visible { animation: none; opacity: 1; transform: none; }
 }
 .board-cta a {
   color: var(--maroon);
@@ -920,38 +960,206 @@ body.lightbox-open { overflow: hidden; }
 }
 .board-cta a:hover { color: var(--gold); }
 
-.committee-grid {
+/* ── Committee honeycomb: six flat-top hexagons packed around the MSU logo.
+   Hover (desktop) or tap (phones) a hexagon to enlarge it and read more;
+   js/script.js toggles .active on the node and .has-active on the orbit.
+   Each hexagon is a gold shape with a slightly smaller white/maroon hexagon
+   (::before) on top, which draws the outline (clip-path can't have borders). */
+.committee-orbit {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  aspect-ratio: 1;
+  margin: 0 auto;
+  container-type: inline-size;   /* 1cqw = 1% of the honeycomb's width */
+  --hex: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+  --node: 34cqw;       /* hexagon width (height is width × 0.866) */
+  --r: 31.8cqw;        /* distance to each neighbour: hexagon height + a small gap */
+  --node-lg: 56cqw;    /* enlarged width */
+  --r-active: 24cqw;   /* enlarged hexagon slides inward to this distance */
+}
+.committee-orbit.reveal { opacity: 1; transform: none; transition: none; }
+
+/* Center: the MSU logo */
+.orbit-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: var(--node);
+  aspect-ratio: 2 / 1.732;
+  transform: translate(-50%, -50%);
+  animation: center-glow 3.5s ease-in-out infinite;
+  transition: opacity .45s, transform .6s cubic-bezier(.34, 1.4, .64, 1);
+}
+.center-hex {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  clip-path: var(--hex);
+  background: var(--gold);
+}
+.center-hex::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  z-index: -1;
+  clip-path: var(--hex);
+  background: radial-gradient(circle at 35% 30%, var(--maroon), var(--maroon-dark));
+}
+.center-hex img { width: 56%; height: auto; }
+@keyframes center-glow {
+  0%, 100% { filter: drop-shadow(0 6px 18px rgba(140,21,21,.25)); }
+  50%      { filter: drop-shadow(0 6px 28px rgba(196,134,10,.55)); }
+}
+.committee-orbit:not(.visible) .orbit-center { opacity: 0; transform: translate(-50%, -50%) scale(.4); }
+.committee-orbit.has-active .orbit-center { opacity: .35; transform: translate(-50%, -50%) scale(.9); }
+
+/* Committee hexagons */
+.committee-node {
+  position: absolute;
+  left: calc(50% + cos(var(--angle)) * var(--r));
+  top:  calc(50% + sin(var(--angle)) * var(--r));
+  z-index: 2;
+  width: var(--node);
+  aspect-ratio: 2 / 1.732;
+  transform: translate(-50%, -50%);
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  pointer-events: none;    /* only the hexagon itself (.node-hex) takes hover/taps, not the */
+  -webkit-tap-highlight-color: transparent;   /* empty corners of this box */
+  transition:
+    left  .6s cubic-bezier(.34, 1.3, .64, 1),
+    top   .6s cubic-bezier(.34, 1.3, .64, 1),
+    width .6s cubic-bezier(.34, 1.3, .64, 1),
+    opacity .4s, filter .4s;
+}
+.committee-node.active { --r: var(--r-active); width: var(--node-lg); z-index: 5; }
+.committee-orbit.has-active .committee-node:not(.active) { opacity: .45; }
+.committee-orbit.has-active .committee-node:not(.active) .node-hex { filter: saturate(.5); }
+.committee-node:focus-visible { outline: none; }
+.committee-node:focus-visible .node-hex { background: var(--maroon); }
+
+/* Entrance: hexagons fly out from the logo one by one */
+.committee-orbit:not(.visible) .committee-node { opacity: 0; }
+.committee-orbit.visible .committee-node {
+  animation: node-in .9s cubic-bezier(.34, 1.4, .64, 1) backwards;
+  animation-delay: calc(.2s + var(--i) * .1s);
+}
+@keyframes node-in {
+  from { left: 50%; top: 50%; width: 8cqw; opacity: 0; }
+}
+
+.node-hex {
+  position: relative;
+  isolation: isolate;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 24px;
+  width: 100%;
+  height: 100%;
+  padding: 6% 16%;
+  overflow: hidden;
+  clip-path: var(--hex);
+  pointer-events: auto;
+  background: rgba(196,134,10,.55);
+  text-align: center;
+  /* gentle ripple that travels around the honeycomb */
+  animation: node-breathe 4.8s ease-in-out infinite;
+  animation-delay: calc(var(--i) * .8s);
+  transition: background .45s, filter .4s;
 }
-.committee-card {
-  flex: 1 1 300px;
-  max-width: 340px;
+.node-hex::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  z-index: -1;
+  clip-path: var(--hex);
   background: var(--white);
-  border-left: 4px solid var(--maroon);
-  border-radius: var(--radius);
-  padding: 24px 26px;
-  box-shadow: var(--shadow-sm);
-  transition: transform .24s, box-shadow .24s;
+  transition: background .45s;
 }
-.committee-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-md);
+@keyframes node-breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(.955); }
 }
-.committee-card h3 {
+.committee-node.active { filter: drop-shadow(0 18px 36px rgba(74,10,10,.35)); }
+.committee-node.active .node-hex { background: var(--gold); animation: none; }
+.committee-node.active .node-hex::before {
+  inset: 3px;
+  background: radial-gradient(circle at 30% 25%, var(--maroon), var(--maroon-deep));
+}
+
+.node-icon {
+  font-size: 7cqw;
+  line-height: 1;
+  margin-bottom: .3em;
+  transition: font-size .45s;
+}
+.node-name {
   font-family: var(--font-display);
   letter-spacing: var(--display-tracking);
   font-weight: 700;
-  font-size: 1.12rem;
+  font-size: clamp(.66rem, 2.6cqw, 1.08rem);
+  line-height: 1.2;
   color: var(--maroon);
-  margin-bottom: 6px;
+  transition: color .45s, font-size .45s;
 }
-.committee-card p {
-  font-size: .93rem;
+.node-desc {
+  /* Fixed width (the enlarged hexagon's text area) so the text doesn't
+     re-wrap and jump around while the hexagon grows */
+  flex-shrink: 0;
+  width: calc(var(--node-lg) * .66);
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  font-size: clamp(.78rem, 2.3cqw, .95rem);
+  line-height: 1.45;
+  color: rgba(255,255,255,.88);
+  transition: opacity .25s, max-height .45s, margin-top .45s;
+}
+.committee-node.active .node-icon { font-size: 5.5cqw; }
+.committee-node.active .node-name { color: var(--white); font-size: clamp(.95rem, 3.3cqw, 1.3rem); }
+.committee-node.active .node-desc {
+  max-height: 12em;
+  opacity: 1;
+  margin-top: .5em;
+  transition: opacity .4s .25s, max-height .45s, margin-top .45s;
+}
+
+.orbit-hint {
+  margin-top: 4px;
+  text-align: center;
+  font-size: .9rem;
   color: var(--text-muted);
-  line-height: 1.6;
+}
+.hint-tap { display: none; }
+@media (hover: none) {
+  .hint-hover { display: none; }
+  .hint-tap   { display: inline; }
+}
+
+/* Phones: the tapped hexagon moves to the center and covers the logo */
+@media (max-width: 600px) {
+  .committee-orbit { --node-lg: 92cqw; --r-active: 0cqw; }
+  .node-hex { padding: 4% 14%; }
+  .committee-node.active .node-hex { padding: 6% 18%; }
+  .committee-node.active .node-icon { font-size: 8cqw; }
+  .committee-node.active .node-name { font-size: 1.05rem; }
+  .committee-node.active .node-desc { font-size: .82rem; }
+  .node-desc { width: calc(var(--node-lg) * .6); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-center, .node-hex,
+  .committee-orbit.visible .committee-node { animation: none; }
 }
 
 /* ================================================================

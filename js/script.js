@@ -89,6 +89,42 @@ const revealObserver = new IntersectionObserver(
 );
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
+// ── Committee honeycomb (about.html): hover or tap a hexagon to enlarge it ──
+//
+// A mouse opens a committee on hover. Touch and keyboard toggle it on
+// click; tapping outside or pressing Escape closes it.
+document.querySelectorAll('.committee-orbit').forEach(orbit => {
+  const nodes = [...orbit.querySelectorAll('.committee-node')];
+  let lastPointer = '';
+
+  const setActive = (node) => {
+    nodes.forEach(n => {
+      n.classList.toggle('active', n === node);
+      n.setAttribute('aria-expanded', String(n === node));
+    });
+    orbit.classList.toggle('has-active', Boolean(node));
+  };
+
+  nodes.forEach(node => {
+    node.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') setActive(node); });
+    node.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') setActive(null); });
+    node.addEventListener('pointerdown', e => { lastPointer = e.pointerType; });
+    node.addEventListener('click', () => {
+      const wasMouse = lastPointer === 'mouse';
+      lastPointer = '';
+      if (wasMouse) return;   // hover already opened it
+      setActive(node.classList.contains('active') ? null : node);
+    });
+  });
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.committee-node')) setActive(null);
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') setActive(null);
+  });
+});
+
 // ── Recurring events: click a flyer circle to see the full flyer ──
 //
 // Each .flyer-circle names its image in data-flyer. Until that file

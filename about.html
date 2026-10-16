@@ -25,7 +25,7 @@
   <link rel="icon" type="image/png" href="assets/logos/msu_logo_without_background.png" />
   <meta name="theme-color" content="#8C1515" />
 
-  <link rel="stylesheet" href="css/styles.css?v=5" />
+  <link rel="stylesheet" href="css/styles.css?v=7" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -43,40 +43,62 @@
           <div class="board-header-text">
             <span class="tag">Our Team</span>
             <h2 class="section-title">MSU Board</h2>
-            <p class="section-sub">The board is organized into five committees, each leading a different part of MSU's work on campus.</p>
+            <p class="section-sub">The board is organized into six committees, each leading a different part of MSU's work on campus.</p>
           </div>
           <p class="board-cta reveal">
             Want to contribute to the board? <a href="https://docs.google.com/forms/d/e/1FAIpQLSeENiCKTCBpF3OW_IfrH4Z6hFWui8SNC2pThUBDZeUX8Kt1_w/viewform?usp=dialog" target="_blank" rel="noopener">Fill out this form</a> to join as an associate member!
           </p>
         </div>
 
-        <div class="committee-grid">
-          <div class="committee-card reveal">
-            <div class="card-icon">🕌</div>
-            <h3>Spiritual</h3>
-            <p>Leads Jumu'ah, halaqas, and the spiritual programming that nurtures the community's faith and connection to Islam.</p>
+        <!-- Committee hexagons form a honeycomb around the MSU logo. Hover (or tap on phones) one to read more. -->
+        <div class="committee-orbit reveal">
+          <div class="orbit-center">
+            <span class="center-hex"><img src="assets/logos/msu_logo_without_background.png" alt="Stanford MSU logo" /></span>
           </div>
-          <div class="committee-card reveal">
-            <div class="card-icon">🤝</div>
-            <h3>Community Building</h3>
-            <p>Plans social events and gatherings that bring students together and build lasting friendships.</p>
-          </div>
-          <div class="committee-card reveal">
-            <div class="card-icon">✊</div>
-            <h3>Social Justice</h3>
-            <p>Organizes advocacy, education, and service initiatives rooted in Islamic values of justice.</p>
-          </div>
-          <div class="committee-card reveal">
-            <div class="card-icon">📣</div>
-            <h3>Public Relations</h3>
-            <p>Manages MSU's communications, social media, and outreach to the wider Stanford community.</p>
-          </div>
-          <div class="committee-card reveal">
-            <div class="card-icon">🎓</div>
-            <h3>Graduate Community</h3>
-            <p>Supports graduate and professional students with programming tailored to their needs.</p>
-          </div>
+          <button type="button" class="committee-node" style="--angle: -90deg; --i: 0;" aria-expanded="false">
+            <span class="node-hex">
+              <span class="node-icon" aria-hidden="true">🏛️</span>
+              <span class="node-name">Executive</span>
+              <span class="node-desc">The Co-Presidents and Vice President, who coordinate with the broader Stanford community and facilitate the rest of the board's work.</span>
+            </span>
+          </button>
+          <button type="button" class="committee-node" style="--angle: -30deg; --i: 1;" aria-expanded="false">
+            <span class="node-hex">
+              <span class="node-icon" aria-hidden="true">🕌</span>
+              <span class="node-name">Spiritual</span>
+              <span class="node-desc">Leads Jumu'ah, halaqas, and the spiritual programming that nurtures the community's faith and connection to Islam.</span>
+            </span>
+          </button>
+          <button type="button" class="committee-node" style="--angle: 30deg; --i: 2;" aria-expanded="false">
+            <span class="node-hex">
+              <span class="node-icon" aria-hidden="true">🤝</span>
+              <span class="node-name">Community Building</span>
+              <span class="node-desc">Plans social events and gatherings that bring students together and build lasting friendships.</span>
+            </span>
+          </button>
+          <button type="button" class="committee-node" style="--angle: 90deg; --i: 3;" aria-expanded="false">
+            <span class="node-hex">
+              <span class="node-icon" aria-hidden="true">✊</span>
+              <span class="node-name">Social Justice</span>
+              <span class="node-desc">Organizes advocacy, education, and service initiatives rooted in Islamic values of justice.</span>
+            </span>
+          </button>
+          <button type="button" class="committee-node" style="--angle: 150deg; --i: 4;" aria-expanded="false">
+            <span class="node-hex">
+              <span class="node-icon" aria-hidden="true">📣</span>
+              <span class="node-name">Public Relations</span>
+              <span class="node-desc">Manages MSU's communications, social media, and outreach to the wider Stanford community.</span>
+            </span>
+          </button>
+          <button type="button" class="committee-node" style="--angle: 210deg; --i: 5;" aria-expanded="false">
+            <span class="node-hex">
+              <span class="node-icon" aria-hidden="true">🎓</span>
+              <span class="node-name">Graduate Community</span>
+              <span class="node-desc">Supports graduate and professional students with programming tailored to their needs.</span>
+            </span>
+          </button>
         </div>
+        <p class="orbit-hint"><span class="hint-hover">Hover over a committee to learn more</span><span class="hint-tap">Tap a committee to learn more</span></p>
       </div>
     </section>
 
@@ -161,6 +183,6 @@
   <div id="site-footer"></div>
 
   <script>window.navSolid = true;</script>
-  <script src="js/script.js?v=4"></script>
+  <script src="js/script.js?v=5"></script>
 </body>
 </html>
