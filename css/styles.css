@@ -1382,6 +1382,13 @@ body.lightbox-open { overflow: hidden; }
   font-weight: 700;
 }
 .info-card a:hover { text-decoration: underline; }
+.info-card .card-link::after {
+  content: '→';
+  display: inline-block;
+  margin-left: 6px;
+  transition: transform .2s;
+}
+.info-card .card-link:hover::after { transform: translateX(4px); }
 
 /* ================================================================
    CLASSES (campus-life.html)
